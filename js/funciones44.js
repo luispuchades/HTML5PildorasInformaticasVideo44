@@ -23,19 +23,28 @@ function soltado(e) {
 
     var archivos;
 // Declaro una varable listado y la inicamos vacia con ""
-    var nombre;
+    var listado;
     var i;
 
     e.preventDefault();
 
     archivos = e.dataTransfer.files;
+
+// Iniciamos la variable listado en una cadena vacía "" para evitar que cuando
+// generemos el bucle for y arrastremos varios archivos nos de el primer archivo
+// sin definir.
     listado = "";
 
-    for(i = 0; i < archivos.length; i = i + 1){
-        nombre = archivos[i].name;
+    for (i = 0; i < archivos.length; i = i + 1) {
+
+        listado += "Nombre:" + " " + archivos[i].name + " " + "<br />";
+        listado += "Tamaño:" + " " + (archivos[i].size / 1024).toFixed(2) + " " + "Kb" + " " + "<br />";
+        listado += "Tipo:" + " " + archivos[i].type + "<br />";
+        listado += "Fecha última modificación:" + " " + archivos[i].lastModifiedDate.toLocaleDateString() + "<br />";
+        listado += "<br />" + "<br />";
     }
 
-    zonaDestino.innerHTML = nombre;
+    zonaDestino.innerHTML = listado;
 }
 
 
@@ -43,15 +52,15 @@ function soltado(e) {
 function comenzar() {
     'use strict';
 
-    zonaDestino.addEventListener("dragenter", function(e){
+    zonaDestino.addEventListener("dragenter", function (e) {
         e.preventDefault();
     }, false);
 
-        zonaDestino.addEventListener("dragover", function(e){
+    zonaDestino.addEventListener("dragover", function (e) {
         e.preventDefault();
     }, false);
 
-        zonaDestino.addEventListener("drop", soltado, false);
+    zonaDestino.addEventListener("drop", soltado, false);
 }
 
 
